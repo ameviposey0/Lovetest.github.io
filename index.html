@@ -1,1 +1,570 @@
-<h1>Salut</h1>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💕 Ma question pour toi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      background: #faf6f8;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(214, 48, 132, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 50%, rgba(233, 30, 99, 0.08), transparent),
+        radial-gradient(ellipse 60% 40% at 0% 80%, rgba(194, 24, 91, 0.08), transparent);
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      padding: 2rem 1.5rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(136, 14, 79, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    #screen-result {
+      max-width: 720px;
+      padding: 2rem 1.5rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: #6d0d3a;
+      font-size: 1.9rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    .name-input {
+      width: 100%;
+      max-width: 300px;
+      padding: 16px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      border: 1px solid rgba(109, 13, 58, 0.2);
+      border-radius: 16px;
+      outline: none;
+      margin-bottom: 1.25rem;
+      background: #fff;
+      color: #2d2d2d;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .name-input::placeholder {
+      color: #ad1457;
+      opacity: 0.65;
+    }
+
+    .name-input:focus {
+      border-color: #c2185b;
+      box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.12);
+    }
+
+    /* Boutons */
+    .btn {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      border-radius: 14px;
+    }
+
+    .btn-primary {
+      padding: 16px 40px;
+      font-size: 1.05rem;
+      color: #fff;
+      background: linear-gradient(180deg, #c2185b 0%, #880e4f 100%);
+      border: none;
+      box-shadow: 0 4px 16px rgba(136, 14, 79, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(136, 14, 79, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 12px rgba(136, 14, 79, 0.25);
+    }
+
+    .btn-yes {
+      padding: 16px 40px;
+      font-size: 1.15rem;
+      color: #fff;
+      background: linear-gradient(180deg, #388e3c 0%, #2e7d32 100%);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 16px rgba(46, 125, 50, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, padding 0.3s ease, font-size 0.3s ease;
+    }
+
+    .btn-yes:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(46, 125, 50, 0.4);
+    }
+
+    .btn-yes:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 12px rgba(46, 125, 50, 0.3);
+    }
+
+    .btn-no {
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      color: #5d4037;
+      background: #fff;
+      border: 2px solid rgba(93, 64, 55, 0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-no:hover {
+      border-color: rgba(93, 64, 55, 0.35);
+      background: #fafafa;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-no:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .buttons-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .question-text {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #3d3d3d;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .question-text .prenom {
+      color: #880e4f;
+      font-weight: 700;
+    }
+
+    /* Galerie en cartes : 2 par ligne, images plus grandes */
+    .result-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      max-width: 620px;
+    }
+
+    .result-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(136, 14, 79, 0.08);
+      box-shadow: 0 6px 24px rgba(136, 14, 79, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .result-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px rgba(136, 14, 79, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .result-card .card-image {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .result-card .card-footer {
+      padding: 14px 16px;
+      background: #fef8fa;
+      border-top: 1px solid rgba(136, 14, 79, 0.06);
+    }
+
+    .heart {
+      font-size: 2.25rem;
+      margin-bottom: 0.5rem;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.12);
+      }
+    }
+
+    .page-credit {
+      margin-top: 2rem;
+      margin-bottom: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(109, 13, 58, 0.65);
+    }
+
+    .page-credit strong {
+      color: rgba(109, 13, 58, 0.95);
+      font-weight: 600;
+    }
+
+    /* ========== RESPONSIVE ========== */
+
+    /* Très petits écrans (phones étroits) */
+    @media (max-width: 380px) {
+      body {
+        padding: 12px;
+      }
+
+      .screen {
+        max-width: 100%;
+        padding: 1.25rem 1rem;
+        border-radius: 20px;
+      }
+
+      #screen-result {
+        padding: 1.25rem 1rem;
+      }
+
+      h1 {
+        font-size: 1.45rem;
+        margin-bottom: 1rem;
+      }
+
+      .name-input {
+        max-width: 100%;
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+
+      .btn-primary {
+        padding: 12px 28px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .btn-yes,
+      .btn-no {
+        padding: 14px 28px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 200px;
+      }
+
+      .buttons-wrapper {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+      }
+
+      .question-text {
+        font-size: 1.05rem;
+      }
+
+      .result-images {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1.25rem;
+      }
+
+      .result-card .card-footer {
+        padding: 12px 14px;
+      }
+
+      .heart {
+        font-size: 1.75rem;
+      }
+    }
+
+    /* Phones */
+    @media (min-width: 381px) and (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+
+      .screen {
+        max-width: 100%;
+        padding: 1.5rem 1.25rem;
+      }
+
+      #screen-result {
+        padding: 1.5rem 1.25rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1.1rem;
+      }
+
+      .name-input {
+        max-width: 100%;
+      }
+
+      .buttons-wrapper {
+        gap: 0.85rem;
+      }
+
+      .question-text {
+        font-size: 1.1rem;
+      }
+
+      .result-images {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        max-width: 100%;
+      }
+
+      #screen-result {
+        max-width: 100%;
+      }
+    }
+
+    /* Tablettes portrait / grands phones */
+    @media (min-width: 481px) and (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .result-images {
+        max-width: 100%;
+        gap: 1.25rem;
+      }
+
+      #screen-result {
+        max-width: 100%;
+      }
+    }
+
+    /* Tablettes paysage / petits desktop */
+    @media (min-width: 769px) and (max-width: 992px) {
+      .result-images {
+        max-width: 640px;
+      }
+
+      #screen-result {
+        max-width: 680px;
+      }
+    }
+
+    /* Desktop et plus : éviter que la zone soit trop large */
+    @media (min-width: 993px) {
+      body {
+        padding: 32px;
+      }
+
+      .screen {
+        max-width: 440px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .result-images {
+        max-width: 720px;
+      }
+
+      #screen-result {
+        max-width: 760px;
+      }
+    }
+
+    /* Hauteur courte (landscape phone) : permettre le scroll */
+    @media (max-height: 500px) {
+      body {
+        justify-content: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        min-height: auto;
+      }
+
+      .screen {
+        min-height: auto;
+        padding-bottom: 2rem;
+      }
+    }
+
+    /* Zone de sécurité pour encoches / barre d’état */
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: max(24px, env(safe-area-inset-left));
+        padding-right: max(24px, env(safe-area-inset-right));
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Écran 1 : Demander le prénom -->
+  <div id="screen-name" class="screen active">
+    <h1>💕 Bonjour !</h1>
+    <p class="question-text">Entre ton prénom pour continuer :</p>
+    <input type="text" id="prenom-input" class="name-input" placeholder="Ton prénom..." autocomplete="off">
+    <button type="button" class="btn btn-primary" id="btn-continuer">Continuer</button>
+  </div>
+
+  <!-- Écran 2 : Question Valentine -->
+  <div id="screen-question" class="screen">
+    <h1>💕 Ma question pour toi</h1>
+    <p class="question-text"><span id="prenom-display" class="prenom"></span>, veux-tu être ma Valentine ?</p>
+    <div class="buttons-wrapper">
+      <button type="button" class="btn btn-yes" id="btn-yes">Oui 💖</button>
+      <button type="button" class="btn btn-no" id="btn-no">Non</button>
+    </div>
+  </div>
+
+  <!-- Écran 3 : Images après Oui (liste dans le script ci-dessous) -->
+  <div id="screen-result" class="screen">
+    <div class="heart">💖</div>
+    <h1>Merci <span id="prenom-result" class="prenom"></span> !</h1>
+    <p class="question-text">Tu as fait le bon choix !</p>
+    <div id="result-images" class="result-images"></div>
+    <p class="page-credit">. <strong>koffiledev</strong></p>
+  </div>
+
+  <script>
+    const screenName = document.getElementById('screen-name');
+    const screenQuestion = document.getElementById('screen-question');
+    const screenResult = document.getElementById('screen-result');
+    const prenomInput = document.getElementById('prenom-input');
+    const btnContinuer = document.getElementById('btn-continuer');
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+    const prenomDisplay = document.getElementById('prenom-display');
+    const prenomResult = document.getElementById('prenom-result');
+
+    let prenom = '';
+
+    // Écran 1 : Valider le prénom et passer à la question
+    function goToQuestion() {
+      prenom = prenomInput.value.trim();
+      if (!prenom) {
+        prenomInput.placeholder = 'Entre ton prénom s\'il te plaît 💕';
+        prenomInput.style.borderColor = '#ff6b6b';
+        return;
+      }
+      prenomInput.style.borderColor = '';
+      prenomDisplay.textContent = prenom;
+      prenomResult.textContent = prenom;
+      screenName.classList.remove('active');
+      screenQuestion.classList.add('active');
+    }
+
+    prenomInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') goToQuestion();
+    });
+    btnContinuer.addEventListener('click', goToQuestion);
+
+    // Clic sur Non : le bouton Oui double de taille (pour de vrai, ça pousse le texte)
+    const basePaddingV = 16;
+    const basePaddingH = 40;
+    const baseFontSize = 1.15;
+    let yesScale = 1;
+
+    btnNo.addEventListener('click', function () {
+      yesScale = yesScale * 2;
+      btnYes.style.padding = `${basePaddingV * yesScale}px ${basePaddingH * yesScale}px`;
+      btnYes.style.fontSize = `${baseFontSize * yesScale}rem`;
+    });
+
+    // Liste des images à afficher après le Oui — ajoute ou enlève des lignes ici
+    const resultImages = [
+      'h.jpg',
+      's.jpg',
+      'a.jpg',
+      '6.jpg',
+      // 'image3.jpg',
+    ];
+
+    // Clic sur Oui : afficher les images
+    btnYes.addEventListener('click', function () {
+      const container = document.getElementById('result-images');
+      container.innerHTML = '';
+      resultImages.forEach(function (src) {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        const img = document.createElement('img');
+        img.className = 'card-image';
+        img.src = src;
+        img.alt = 'Photo';
+        const footer = document.createElement('div');
+        footer.className = 'card-footer';
+        card.appendChild(img);
+        card.appendChild(footer);
+        container.appendChild(card);
+      });
+      screenQuestion.classList.remove('active');
+      screenResult.classList.add('active');
+    });
+  </script>
+</body>
+
+</html>
